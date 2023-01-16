@@ -1,0 +1,78 @@
+body{
+    font-family: 'Josefin Sans', sans-serif !important;
+    background-color: #1c2331 !important;
+    color: #ecf0f1  !important;
+    font-size: 1.2rem !important;
+}
+
+.headerTitle{
+    font-weight: bold !important;
+}
+
+.contenedorLogin{
+    margin-top: 70px;
+}
+
+.formRegistro{
+    margin-top: 50px !important;
+}
+
+.card {
+    height: 180px !important;
+    width: 90% !important;
+    background-color: #ecf0f1 !important;
+}
+
+.card:hover{
+    cursor: pointer;
+    border: red solid 3px;
+}
+
+.sliderTareas{
+    width: 85% !important;
+    margin-left: 5%;
+}
+
+.subTitulo{
+    margin-left: 5%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+.cardTitle{
+    color: red;
+    font-weight: bold;
+}
+
+.botonesLgin{
+    display: flex;
+    margin: 1% 5%;
+    justify-content: space-between;
+}
+
+button:hover{
+    cursor: pointer;
+    border: red solid 3px;
+}
+
+button{
+    border-radius: 20px !important;
+}
+
+#titulo{
+    width: 100% !important;
+    margin-top: 2% !important;
+    text-align: center;
+    font-size: larger;
+    color: red;
+}
+
+#descripcion{
+    width: 100% !important;  
+    font-size: 20px;
+    height: 200px;
+}
+
+.paginaTarjeta{
+    margin: 5% 15%;
+}
