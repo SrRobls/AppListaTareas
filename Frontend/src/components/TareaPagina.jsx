@@ -1,8 +1,12 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import TiempoTareas from './TiempoTareas'
 
 const TareaPagina = ({match, history}) => {
+
+    // const refTiempo = useRef(null)
+    const refTitulo = useRef(null)
+    const refDescripcion = useRef(null)
 
     // con la funcion de macth obtenemos el parametro mandado de la url,, es decirl el :id
     // const history = useHistory()
@@ -14,7 +18,7 @@ const TareaPagina = ({match, history}) => {
       }
 
     let [tarea, setTarea] = useState([null])
-    let [valorTiempo, setValorTiempo] = useState([])
+    let [valorTiempo, setValorTiempo] = useState('Selecciona el tiempo de tarea')
     let [tiempoTarea, setTiempoTarea] = useState([])
     let [error, setError] = useState(null)
 
@@ -101,38 +105,36 @@ const TareaPagina = ({match, history}) => {
     }
 
     let crear = () =>{
-
-        let textValorTiempo = document.getElementById('TiempoTarea').value
-        let textoTitulo = document.getElementById('titulo').value
-        let textoDescripcion = document.getElementById('descripcion').value
-
-        if (textValorTiempo === 'Selecciona el tiempo de tarea' | textoTitulo === '' | textoDescripcion === ''){
-            setError('Debes seleccionar todos los campos')
-            return
+        let textoTitulo = refTitulo.current.value
+        let textoDescripcion = refDescripcion.current.value
+        
+    
+        if (valorTiempo === 'Selecciona el tiempo de tarea' | textoTitulo === '' | textoDescripcion === ''){
+          setError('Debes seleccionar todos los campos')
+          return
         }
-
+    
         let tarea_json = {
-            "titulo": document.getElementById("titulo").value ,
-            "descripcion": tarea.descripcion,
-            "tiempo_tarea": valorTiempo,
-            "fk_idUsuario": id_user_log
+          "titulo": textoTitulo,
+          "descripcion": textoDescripcion,
+          "tiempo_tarea": valorTiempo,
+          "fk_idUsuario": id_user_log
         }
-
-        console.log(tarea_json)
-
+    
         fetch('/api/tareas/create', {
-            method: "POST",
-            body: JSON.stringify(tarea_json),
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Token ' + token_user_log
-            }
+          method: "POST",
+          body: JSON.stringify(tarea_json),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Token ' + token_user_log
+          }
         })
         history.push('/tareas')
     }
 
-    function obtenerValorTiempo(valor){
-        setValorTiempo(valor)
+    function obtenerValorTiempo(valorRef){
+        setValorTiempo(valorRef)
+
     }
 
     let handleClick = (e) =>{
@@ -143,9 +145,9 @@ const TareaPagina = ({match, history}) => {
   return (
     <div className='d-flex align-items-center justify-content-center'>
         <div className='paginaTarjeta form-control'>
-            <input id="titulo" type="text" value={tarea?.titulo} onChange={(e) => {manejandoCambioTitulo(e.target.value)}}  placeholder='Titulo' />
+            <input id="titulo" ref={refTitulo} type="text" value={tarea?.titulo} onChange={(e) => {manejandoCambioTitulo(e.target.value)}}  placeholder='Titulo' />
             <h3>
-                <textarea id='descripcion' onChange={(e) => {manejandoCambio(e.target.value)}} value={tarea?.descripcion} placeholder='Descripción'></textarea>
+                <textarea id='descripcion' ref={refDescripcion} onChange={(e) => {manejandoCambio(e.target.value)}} value={tarea?.descripcion} placeholder='Descripción'></textarea>
                 {/* Cada vez que hay un cambio en el text area, se ejecuta la funcion maneandCambio que toma como parametro el valor del objetivo con el que intractuamos
                 y el valor del text area en un principio sera etraido de la informacion de la instancia tarea (si tiene), si no, entonces ser una cadena vacia */}
             </h3>
