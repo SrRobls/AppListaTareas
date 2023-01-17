@@ -27,7 +27,7 @@ const Tareas = () => {
     // de la api al "dia" 
     useEffect(() => {
         getTareas()
-    }, [])
+    }, [tareas])
 
     // generamos una funcion asincrona (esto nos permite usar await) para obtener los datos de la promesa (la promesa es laos datos que "tarde o tenaprano" nos mandara la api)
     let getTareas = async () => {
@@ -53,30 +53,14 @@ const Tareas = () => {
       slidesToShow: 3,
       slidesToScroll: 3,
       initialSlide: 0,
-      centerMode: true,
+      centerMode: false,
       responsive: [
-          {
-              breakpoint: 1024,
-              settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 3,
-                  infinite: true,
-                  dots: true
-              }
-          },
-          {
-              breakpoint: 600,
-              settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 2,
-                  initialSlide: 2
-              }
-          },
           {
               breakpoint: 480,
               settings: {
                   slidesToShow: 1,
-                  slidesToScroll: 1
+                  slidesToScroll: 1,
+                  infinite: true,
               }
           }
       ]
@@ -90,7 +74,7 @@ const Tareas = () => {
           <Link to={`/tarea/nuevo/`}><button>Crear Tarea</button></Link>
           <Logout/>
         </div>
-          <div className='d-flex flex-column '>
+          <div className='d-flex flex-column  justify-content-center '>
           <h2 className='subTitulo'>Diarias</h2>
             <div>
               <Slider className='sliderTareas' {...settings}>
